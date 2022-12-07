@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Hao Yin" />
+
+<meta name="date" content="2022-12-07" />
+
+<title>Introduction to Two Functions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to Two Functions</h1>
+<h4 class="author">Hao Yin</h4>
+<h4 class="date">2022-12-07</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>Hybrid.PSO</strong> is a function to implement Hybrid
+Particle Swarm Optimization Algorithm using R.</p>
+<p><strong>PageRank</strong> is a function to implement PageRank
+Algorithm using Rcpp.</p>
+<hr />
+</div>
+<div id="hybrid-particle-swarm-optimization-algorithm" class="section level2">
+<h2>Hybrid Particle Swarm Optimization Algorithm</h2>
+<div id="algorithm-background" class="section level3">
+<h3>Algorithm Background</h3>
+<p>particle swarm optimization (PSO) is a computational method that
+optimizes a problem by iteratively trying to improve a candidate
+solution with regard to a given measure of quality.</p>
+<p>It solves a problem by having a population of candidate solutions,
+here dubbed particles, and moving these particles around in the
+search-space according to simple mathematical formula over the
+particle’s position and velocity.</p>
+<p>Each particle’s movement is influenced by its local best known
+position, but is also guided toward the best known positions in the
+search-space, which are updated as better positions are found by other
+particles. This is expected to move the swarm toward the best
+solutions.</p>
+</div>
+<div id="source-code-for-the-algorithm" class="section level3">
+<h3>Source Code for the algorithm</h3>
+<p>The source R code for <strong>Hybrid.PSO</strong> is as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Hybrid.PSO <span class="ot">&lt;-</span> <span class="cf">function</span>(solveFun,particleNum,limitX,w,c1,c2,iters,alpha){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  pbest <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  gbest <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  gbestAdd <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  vmax <span class="ot">&lt;-</span> <span class="fl">0.15</span> <span class="sc">*</span> (limitX[<span class="dv">2</span>] <span class="sc">-</span> limitX[<span class="dv">1</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  xMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="at">x =</span> <span class="fu">runif</span>(particleNum, limitX[<span class="dv">1</span>], limitX[<span class="dv">2</span>])), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>)))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  vMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="at">x =</span> <span class="fu">runif</span>(particleNum, <span class="sc">-</span>vmax, vmax)),  <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>)))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  adjusts <span class="ot">&lt;-</span> <span class="fu">apply</span>(xMat, <span class="dv">1</span>, solveFun)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  pbest <span class="ot">&lt;-</span> <span class="fu">cbind</span>(xMat, adjusts)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  idxAdjusts <span class="ot">&lt;-</span> <span class="fu">ncol</span>(pbest)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  gbest <span class="ot">&lt;-</span> pbest[<span class="fu">which.max</span>(pbest[, idxAdjusts]),]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iters){</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mapply</span>(<span class="cf">function</span>(no, adj){</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(adj <span class="sc">&gt;</span> pbest[no, idxAdjusts]){</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        pbest[no, ] <span class="ot">&lt;&lt;-</span> <span class="fu">c</span>(xMat[no, ], adj)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    }, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(adjusts), adjusts)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">max</span>(pbest[, idxAdjusts]) <span class="sc">&gt;</span> gbest[idxAdjusts]) {</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      gbestAdd <span class="ot">&lt;-</span> <span class="fu">max</span>(pbest[, idxAdjusts]) <span class="sc">-</span> gbest[idxAdjusts]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      gbest <span class="ot">&lt;-</span> pbest[<span class="fu">which.max</span>(pbest[, idxAdjusts]), ]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    xMatOld <span class="ot">&lt;-</span> xMat</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    xMat <span class="ot">&lt;-</span> xMat <span class="sc">+</span> vMat</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    vMat <span class="ot">&lt;-</span> w<span class="sc">*</span>vMat <span class="sc">+</span>  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      c1 <span class="sc">*</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">*</span> (pbest[, <span class="dv">1</span><span class="sc">:</span>(idxAdjusts <span class="sc">-</span> <span class="dv">1</span>), <span class="at">drop=</span>F] <span class="sc">-</span> xMatOld) <span class="sc">+</span> </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      c2 <span class="sc">*</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">matrix</span>(<span class="fu">rep</span>(gbest[<span class="dv">1</span><span class="sc">:</span>(idxAdjusts <span class="sc">-</span> <span class="dv">1</span>)], particleNum), <span class="at">ncol =</span> idxAdjusts <span class="sc">-</span> <span class="dv">1</span> , <span class="at">byrow =</span> T)<span class="sc">-</span>xMatOld) </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    vMat[<span class="fu">which</span>(vMat <span class="sc">&lt;</span> (<span class="sc">-</span>vmax))] <span class="ot">&lt;-</span> (<span class="sc">-</span>vmax)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    vMat[<span class="fu">which</span>(vMat <span class="sc">&gt;</span> (vmax))]  <span class="ot">&lt;-</span> (vmax)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    xMat[<span class="fu">which</span>(xMat <span class="sc">&lt;</span> (limitX[<span class="dv">1</span>]))] <span class="ot">&lt;-</span> (limitX[<span class="dv">1</span>])</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    xMat[<span class="fu">which</span>(xMat <span class="sc">&gt;</span> (limitX[<span class="dv">2</span>]))] <span class="ot">&lt;-</span> (limitX[<span class="dv">2</span>])</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    adjusts <span class="ot">&lt;-</span> <span class="fu">apply</span>(xMat, <span class="dv">1</span>, solveFun)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(gbestAdd) <span class="sc">&amp;&amp;</span> gbestAdd <span class="sc">&lt;</span> alpha) {</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(gbest)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;The iteration limit was reached and the result could not be solved&quot;</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="algorithm-application-example" class="section level3">
+<h3>Algorithm application example</h3>
+<p>Here, we use a hybrid particle swarm optimization algorithm to solve
+the target function as following. <span class="math display">\[
+f(x) = x*(sin(10*\pi*x)+2).
+\]</span> We can see from the result graph that the HPSO Algorithm
+successfully find the optimal solution.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>solveFun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>(<span class="fu">sin</span>(<span class="dv">10</span><span class="sc">*</span>pi<span class="sc">*</span>x)<span class="sc">+</span><span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>limitX <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>) </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>particleNum <span class="ot">&lt;-</span> <span class="dv">20</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="dv">1</span>          </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> c2 <span class="ot">&lt;-</span> <span class="dv">2</span>   </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>iters <span class="ot">&lt;-</span> <span class="dv">10000</span>  </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.0002</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">Hybrid.PSO</span>(solveFun,particleNum,limitX,w,c1,c2,iters,alpha)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;The optimal solution of the target function is x=&quot;</span>, solution[<span class="dv">1</span>], <span class="st">&quot;, f(x)=&quot;</span>,solution[<span class="dv">2</span>], <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<pre><code>## The optimal solution of the target function is x= 1.851425163 , f(x)= 5.552420111 .</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">solveFun</span>(x), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&#39;grey60&#39;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(solution[<span class="dv">1</span>],solution[<span class="dv">2</span>],<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="pagerank-algorithm" class="section level2">
+<h2>PageRank Algorithm</h2>
+<div id="algorithm-background-1" class="section level3">
+<h3>Algorithm Background</h3>
+<p>PageRank (PR) is an algorithm used by Google Search to rank web pages
+in their search engine results. It is named after both the term “web
+page” and co-founder Larry Page. PageRank is a way of measuring the
+importance of website pages.</p>
+<p>PageRank works by counting the number and quality of links to a page
+to determine a rough estimate of how important the website is. The
+underlying assumption is that more important websites are likely to
+receive more links from other websites.</p>
+</div>
+<div id="source-code-for-the-algorithm-1" class="section level3">
+<h3>Source Code for the algorithm</h3>
+<p>The source R code for <strong>PageRank</strong> is as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NumericVector <span class="fu">PageRank</span>(NumericMatrix MA, double d, int MaxIter, NumericVector IniVec){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  int N <span class="ot">=</span> <span class="fu">MA.nrow</span>();</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  NumericMatrix <span class="fu">MT</span>(N, N);</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  NumericVector <span class="fu">UpdVec</span>(N);</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(int <span class="at">i =</span> <span class="dv">0</span>; i <span class="sc">&lt;</span> N; i<span class="sc">++</span>){</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    double sum <span class="ot">=</span> <span class="dv">0</span>;</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(int <span class="at">j =</span> <span class="dv">0</span>; j <span class="sc">&lt;</span> N; j<span class="sc">++</span>){</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      sum <span class="ot">=</span> sum <span class="sc">+</span> <span class="fu">MA</span>(j,i);</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(sum<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(int <span class="at">k =</span> <span class="dv">0</span>; k <span class="sc">&lt;</span> N; k<span class="sc">++</span>){</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MT</span>(k,i) <span class="ot">=</span> <span class="fu">MA</span>(k,i)<span class="sc">/</span>sum;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(int <span class="at">i =</span> <span class="dv">0</span>; i <span class="sc">&lt;</span> MaxIter; i<span class="sc">++</span>){</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(int <span class="at">j =</span> <span class="dv">0</span>; j <span class="sc">&lt;</span> N; j<span class="sc">++</span>){</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      UpdVec[j] <span class="ot">=</span> <span class="dv">0</span>;</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(int <span class="at">k =</span> <span class="dv">0</span>; k <span class="sc">&lt;</span> N; k<span class="sc">++</span>){</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        UpdVec[j] <span class="ot">=</span> UpdVec[j] <span class="sc">+</span> d<span class="sc">*</span><span class="fu">MT</span>(j,k)<span class="sc">*</span>IniVec[k];</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>      UpdVec[j] <span class="ot">=</span> UpdVec[j] <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>d)<span class="sc">/</span>N;</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    double Diff <span class="ot">=</span> <span class="dv">0</span>;</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(int <span class="at">l =</span> <span class="dv">0</span>; l <span class="sc">&lt;</span> N; l<span class="sc">++</span>){</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      Diff <span class="ot">=</span> Diff <span class="sc">+</span> <span class="fu">abs</span>(UpdVec[l]<span class="sc">-</span>IniVec[l]);</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(Diff <span class="sc">&lt;</span> <span class="fl">1e-10</span>){</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span>;</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(int <span class="at">m =</span> <span class="dv">0</span>; m <span class="sc">&lt;</span> N; m<span class="sc">++</span>){</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      IniVec[m] <span class="ot">=</span> UpdVec[m];</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(UpdVec);</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="algorithm-application-example-1" class="section level3">
+<h3>Algorithm application example</h3>
+<p>We use a simulated adjacent matrix to illustrate the application
+result. Data ‘MA’ is a 50*50 adjacent matrix of 50 nodes. The PageRank
+algorithm give the importance evaluation results of each node. A bar
+figure is used to show the importance of each node.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(StatComp22035)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(MA)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>NumNode <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>nrow <span class="ot">&lt;-</span> ncol <span class="ot">&lt;-</span> NumNode</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>IniVec <span class="ot">&lt;-</span> <span class="fu">runif</span>(NumNode, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Score <span class="ot">&lt;-</span> <span class="fu">PageRank</span>(MA, <span class="fl">0.85</span>, <span class="dv">100000</span>, IniVec)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="dv">1</span><span class="sc">:</span>NumNode,  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> Score</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>index, <span class="at">y=</span>value)) <span class="sc">+</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
